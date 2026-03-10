@@ -1,0 +1,12 @@
+{
+  "business_name": "Test Company",
+  "industry": "SaaS",
+  "business_model": "Startup",
+  "target_market": "B2B",
+  "product_description": "AI-powered analytics platform for business intelligence",
+  "technology_stack": ["AI", "Cloud", "Web"],
+  "data_sensitivity": "High",
+  "deployment_region": "Global",
+  "regulatory_environment": ["GDPR"],
+  "ai_usage_level": "Core AI Product"
+}
