@@ -90,6 +90,24 @@ class LLMService:
             assessment = json.loads(generated_text)
             assessment["raw_analysis"] = generated_text  # Store for debugging
             
+            # --- DETERMINISTIC SCORING ---
+            # Calculate the final overall_risk_score applying custom industry weights
+            from models import INDUSTRY_WEIGHTS
+            industry = business_profile.get("industry", "Other")
+            weights = INDUSTRY_WEIGHTS.get(industry, INDUSTRY_WEIGHTS["Other"])
+            
+            calculated_overall_score = 0.0
+            categories = assessment.get("categories", [])
+            for category in categories:
+                cat_name = category.get("category_name", "")
+                cat_score = category.get("total_risk_score", 0)
+                # Parse exact category matches or fallback
+                weight = weights.get(cat_name, 0.125)
+                calculated_overall_score += cat_score * weight
+                
+            if categories:
+                assessment["overall_risk_score"] = round(calculated_overall_score, 1)
+            
             return assessment
                 
         except Exception as e:

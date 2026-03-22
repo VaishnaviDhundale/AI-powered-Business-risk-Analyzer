@@ -15,6 +15,44 @@ class IndustryEnum(str, Enum):
     MANUFACTURING = "Manufacturing"
     OTHER = "Other"
 
+INDUSTRY_WEIGHTS = {
+    "FinTech": {
+        "Strategic Risks": 0.10, "Operational Risks": 0.05, "Technology & AI Risks": 0.05,
+        "Data & Privacy Risks": 0.15, "Security Risks": 0.20, "Legal & Compliance Risks": 0.20,
+        "Market & Financial Risks": 0.20, "Ethical & Reputational Risks": 0.05
+    },
+    "Healthcare": {
+        "Strategic Risks": 0.05, "Operational Risks": 0.15, "Technology & AI Risks": 0.05,
+        "Data & Privacy Risks": 0.25, "Security Risks": 0.15, "Legal & Compliance Risks": 0.20,
+        "Market & Financial Risks": 0.05, "Ethical & Reputational Risks": 0.10
+    },
+    "E-commerce": {
+        "Strategic Risks": 0.15, "Operational Risks": 0.15, "Technology & AI Risks": 0.15,
+        "Data & Privacy Risks": 0.15, "Security Risks": 0.15, "Legal & Compliance Risks": 0.05,
+        "Market & Financial Risks": 0.15, "Ethical & Reputational Risks": 0.05
+    },
+    "SaaS": {
+        "Strategic Risks": 0.10, "Operational Risks": 0.15, "Technology & AI Risks": 0.20,
+        "Data & Privacy Risks": 0.20, "Security Risks": 0.20, "Legal & Compliance Risks": 0.05,
+        "Market & Financial Risks": 0.05, "Ethical & Reputational Risks": 0.05
+    },
+    "Education": {
+        "Strategic Risks": 0.10, "Operational Risks": 0.10, "Technology & AI Risks": 0.05,
+        "Data & Privacy Risks": 0.20, "Security Risks": 0.15, "Legal & Compliance Risks": 0.10,
+        "Market & Financial Risks": 0.05, "Ethical & Reputational Risks": 0.25
+    },
+    "Manufacturing": {
+        "Strategic Risks": 0.15, "Operational Risks": 0.25, "Technology & AI Risks": 0.10,
+        "Data & Privacy Risks": 0.05, "Security Risks": 0.10, "Legal & Compliance Risks": 0.10,
+        "Market & Financial Risks": 0.15, "Ethical & Reputational Risks": 0.10
+    },
+    "Other": {
+        "Strategic Risks": 0.125, "Operational Risks": 0.125, "Technology & AI Risks": 0.125,
+        "Data & Privacy Risks": 0.125, "Security Risks": 0.125, "Legal & Compliance Risks": 0.125,
+        "Market & Financial Risks": 0.125, "Ethical & Reputational Risks": 0.125
+    }
+}
+
 
 class BusinessModelEnum(str, Enum):
     STARTUP = "Startup"

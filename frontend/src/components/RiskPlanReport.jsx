@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiBarChart2, FiDownload, FiCopy, FiArrowLeft } from 'react-icons/fi';
 import RiskCard from './RiskCard';
 import RiskChart from './RiskChart';
@@ -8,6 +8,7 @@ import '../styles/RiskPlanReport.css';
 import html2pdf from 'html2pdf.js';
 
 const RiskPlanReport = ({ assessment, onBack }) => {
+  const [expandedCategory, setExpandedCategory] = useState(null);
   const handleCopyReport = () => {
     const reportText = `
 BUSINESS RISK & MITIGATION PLAN REPORT
@@ -167,12 +168,18 @@ ${cat.risks.map(r => `- ${r.risk_title} [${r.severity}] (${Math.round(r.risk_sco
         <h2>Detailed Risk Analysis</h2>
         
         {assessment.categories.map((category, idx) => (
-          <div key={idx} className="category-section">
-            <div className="category-header">
+          <div key={idx} className={`category-section ${expandedCategory === idx ? 'expanded' : ''}`}>
+            <div 
+              className="category-header"
+              onClick={() => setExpandedCategory(expandedCategory === idx ? null : idx)}
+            >
               <div className="category-title">
                 <span className="category-icon">{categoryIcons[category.category_name] || '📌'}</span>
                 <div>
-                  <h3>{category.category_name}</h3>
+                  <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    {category.category_name}
+                    <span style={{ fontSize: '0.8em', color: '#94a3b8' }}>{expandedCategory === idx ? '▲' : '▼'}</span>
+                  </h3>
                   <p className="category-description">{category.category_description}</p>
                 </div>
               </div>
@@ -181,18 +188,20 @@ ${cat.risks.map(r => `- ${r.risk_title} [${r.severity}] (${Math.round(r.risk_sco
               </div>
             </div>
 
-            <div className="risks-grid">
-              {category.risks.map((risk, riskIdx) => (
-                <RiskCard key={riskIdx} risk={risk} categoryName={category.category_name} />
-              ))}
-            </div>
+            {expandedCategory === idx && (
+              <div className="risks-grid" style={{ marginTop: '20px', animation: 'slideIn 0.3s ease' }}>
+                {category.risks.map((risk, riskIdx) => (
+                  <RiskCard key={riskIdx} risk={risk} categoryName={category.category_name} />
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>
 
       {/* Footer */}
       <div className="report-footer">
-        <p>This report was generated using AI Business Risk Assessment technology. Created for research and analysis purposes.</p>
+        <p>This report was generated using AI Business Risk Assessment technology.</p>
         <p className="footer-timestamp">Generated on {formatDate(assessment.assessment_date)}</p>
       </div>
     </div>

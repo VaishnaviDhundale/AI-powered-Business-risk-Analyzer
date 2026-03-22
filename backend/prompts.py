@@ -71,6 +71,7 @@ For each category, provide 2-4 specific, relevant risks based on the business pr
 IMPORTANT REQUIREMENTS:
 - Make risks specific and relevant to the business profile provided
 - Use realistic, professional language suitable for a business consultant report
+- Emphasize and provide strict evaluation on the most critical constraints for this specific industry (e.g. prioritize Ethical Risks for Education, Data Privacy for Healthcare).
 - Ensure risk scores are based on both severity and likelihood
 - Provide actionable mitigation strategies
 - Keep descriptions concise but comprehensive

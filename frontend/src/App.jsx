@@ -2,10 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { FiAlertCircle } from 'react-icons/fi';
 import BusinessProfileForm from './components/BusinessProfileForm';
 import RiskPlanReport from './components/RiskPlanReport';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import About from './components/About';
+import Contact from './components/Contact';
 import { apiService } from './utils/api';
 import './App.css';
 
 function App() {
+  const [currentPage, setCurrentPage] = useState('home'); 
   const [currentView, setCurrentView] = useState('form'); // 'form' or 'report'
   const [assessment, setAssessment] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -64,42 +69,47 @@ function App() {
 
   return (
     <div className="app">
-      <header className="app-header">
-        <div className="header-content">
-          <h1>AI Business Risk & Mitigation Plan Generator</h1>
-          <p>Research-grade risk assessment powered by Generative AI</p>
-        </div>
-      </header>
+      <Navbar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+      
+      {currentPage === 'home' && <Home setCurrentPage={setCurrentPage} />}
+      {currentPage === 'about' && <About />}
+      {currentPage === 'contact' && <Contact />}
 
-      <main className="app-main">
-        {!apiHealthy && (
-          <div className="warning-banner">
-            <FiAlertCircle size={20} />
-            <span>
-              ⚠️ Backend connection issue. Make sure the FastAPI server is running at http://localhost:8000
-            </span>
-          </div>
-        )}
-
-        {error && (
-          <div className="error-banner">
-            <FiAlertCircle size={20} />
-            <div>
-              <strong>Error:</strong> {error}
+      {currentPage === 'analyzer' && (
+        <>
+          <header className="app-header">
+            <div className="header-content">
+              <h1>AI Business Risk & Mitigation Plan Generator</h1>
             </div>
-          </div>
-        )}
+          </header>
 
-        {currentView === 'form' ? (
-          <BusinessProfileForm onSubmit={handleFormSubmit} loading={loading} />
-        ) : (
-          <RiskPlanReport assessment={assessment} onBack={handleBack} />
-        )}
-      </main>
+          <main className="app-main">
+            {!apiHealthy && (
+              <div className="warning-banner">
+                <FiAlertCircle size={20} />
+                <span>
+                  ⚠️ Backend connection issue. Make sure the FastAPI server is running at http://localhost:8000
+                </span>
+              </div>
+            )}
 
-      <footer className="app-footer">
-        <p>© 2024 AI Risk Assessment Platform. Built with React & FastAPI. For research and analysis purposes.</p>
-      </footer>
+            {error && (
+              <div className="error-banner">
+                <FiAlertCircle size={20} />
+                <div>
+                  <strong>Error:</strong> {error}
+                </div>
+              </div>
+            )}
+
+            {currentView === 'form' ? (
+              <BusinessProfileForm onSubmit={handleFormSubmit} loading={loading} />
+            ) : (
+              <RiskPlanReport assessment={assessment} onBack={handleBack} />
+            )}
+          </main>
+        </>
+      )}
     </div>
   );
 }

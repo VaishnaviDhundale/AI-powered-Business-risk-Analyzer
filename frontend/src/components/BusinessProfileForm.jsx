@@ -95,9 +95,6 @@ const BusinessProfileForm = ({ onSubmit, loading }) => {
   return (
     <div className="form-container">
       <div className="form-header">
-        <div className="header-icon">
-          <FiTarget size={32} />
-        </div>
         <div className="header-content">
           <h1>Business Risk Assessment Form</h1>
           <p>Provide your business details for AI-powered risk analysis</p>
